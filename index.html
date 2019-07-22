@@ -8,11 +8,30 @@
     <title>Mavo Chart Plugin</title>
 </head>
 <body>
-    <main mv-app="chartDemo">
-        <figure class="mv-chart">
+    <main mv-app="chartDemo" mv-bar="with export">
+        <!-- Chart options -->
+        <meta property="labels" content="[list('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul')]">
+        <meta property="data" content="2, 30, 15, 22, 5, 15, 6 ; 12, 10, 5, 2, 20, 30, 45">
+        <meta property="legend" content="Dataset1; Dataset2">
+        <meta property="title" content="Chart">
+        <meta property="type" mv-edit="#type">
+        <select id="type" hidden>
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+        </select>
 
-        </figure>
+        <canvas property="chart"
+                mv-chart-options="showLines: false"
+                mv-chart-type="[type]"
+                mv-chart-title="[title]"
+                mv-chart-data="[data]"
+                mv-chart-legend="[legend]"
+                mv-chart-labels="[labels]"
+                mv-chart-series-styles="backgroundColor: #ff638480, borderColor: #ff6384; backgroundColor: #00008080, borderColor: #000080, borderWidth: 1">
+            <p>Your browser doesn't support charts in canvas!</p>
+        </canvas>
     </main>
+
     <script src="https://dev.mavo.io/dist/mavo.min.js"></script>
     <script src="mavo-chart.js"></script>
 </body>

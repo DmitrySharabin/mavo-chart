@@ -49,85 +49,102 @@
 
             // Observers for live attributes
             if (this.element.hasAttribute('mv-chart-type')) {
-                // Chart type, make it lazy to give expressions a chance and then observe changes
-                $.lazy(this.chart.config, 'type', () => {
+                const updateType = (value) => {
+                    return value.replace(/\s{2,}/g, ' ').trim();
+                }
+
+                if (Mavo.DOMExpression.search(this.element, 'mv-chart-type')) {
                     this.chartTypeObserver = new Mavo.Observer(this.element, 'mv-chart-type', () => {
-                        this.chart.config.type = this.element.getAttribute('mv-chart-type').replace(/\s{2,}/g, ' ').trim();
+                        this.chart.config.type = updateType(this.element.getAttribute('mv-chart-type'));
                         this.chart.update();
                     });
-
-                    return this.element.getAttribute('mv-chart-type').replace(/\s{2,}/g, ' ').trim();
-                });
+                } else {
+                    this.chart.config.type = updateType(this.element.getAttribute('mv-chart-type'));
+                }
             }
 
             if (this.element.hasAttribute('mv-chart-data')) {
-                // Chart data, make it lazy to give expressions a chance and then observe changes
-                // TODO
-
-                this.chartDataObserver = new Mavo.Observer(this.element, 'mv-chart-data', () => {
-                    this.element.getAttribute('mv-chart-data')
+                const updateData = (value, chart) => {
+                    value
                         .split(';')
                         .forEach((dataset, index) => {
                             const data = dataset.split(',').map(num => +num);
-                            this.chart.data.datasets[index] = { ...this.chart.data.datasets[index], data };
+                            chart.data.datasets[index] = { ...chart.data.datasets[index], data };
                         });
-                    this.chart.update();
-                });
+                }
+
+                if (Mavo.DOMExpression.search(this.element, 'mv-chart-data')) {
+                    this.chartDataObserver = new Mavo.Observer(this.element, 'mv-chart-data', () => {
+                        updateData(this.element.getAttribute('mv-chart-data'), this.chart);
+                        this.chart.update();
+                    });
+                } else {
+                    updateData(this.element.getAttribute('mv-chart-data'), this.chart);
+                }
             }
 
             if (this.element.hasAttribute('mv-chart-labels')) {
-                // Chart labels, make it lazy to give expressions a chance and then observe changes
-                $.lazy(this.chart.data, 'labels', () => {
+                const updateLabels = (value) => {
+                    return value.split(',').map(label => label.replace(/\s{2,}/g, ' ').trim());
+                }
+
+                if (Mavo.DOMExpression.search(this.element, 'mv-chart-labels')) {
                     this.chartLabelsObserver = new Mavo.Observer(this.element, 'mv-chart-labels', () => {
-                        this.chart.data.labels = this.element.getAttribute('mv-chart-labels').split(',').map(label => label.replace(/\s{2,}/g, ' ').trim());
+                        this.chart.data.labels = updateLabels(this.element.getAttribute('mv-chart-labels'));
                         this.chart.update();
                     });
-
-                    return this.element.getAttribute('mv-chart-labels').split(',').map(label => label.replace(/\s{2,}/g, ' ').trim());
-                });
+                } else {
+                    this.chart.data.labels = updateLabels(this.element.getAttribute('mv-chart-labels'));
+                }
             }
 
             if (this.element.hasAttribute('mv-chart-title')) {
-                // Chart title, make it lazy to give expressions a chance and then observe changes
-                $.lazy(this.chart.options.title, 'text', () => {
-                    this.chartTitleObserver = new Mavo.Observer(this.element, 'mv-chart-title', () => {
-                        const title = this.element.getAttribute('mv-chart-title').replace(/\s{2,}/g, ' ').trim();
+                const updateTitle = (value, chart) => {
+                    const title = value.replace(/\s{2,}/g, ' ').trim();
                         if (title === '') {
-                            this.chart.options.title.display = false;
+                            chart.options.title.display = false;
                         } else {
-                            this.chart.options.title.text = title;
-                            this.chart.options.title.display = true;
+                            chart.options.title.text = title;
+                            chart.options.title.display = true;
                         }
+                }
+
+                if (Mavo.DOMExpression.search(this.element, 'mv-chart-title')) {
+                    this.chartTitleObserver = new Mavo.Observer(this.element, 'mv-chart-title', () => {
+                        updateTitle(this.element.getAttribute('mv-chart-title'), this.chart);
                         this.chart.update();
                     });
-
-                    return this.element.getAttribute('mv-chart-title').replace(/\s{2,}/g, ' ').trim();
-                });
-
-                if (this.chart.options.title.text !== '') {
-                    this.chart.options.title.display = true;
+                } else {
+                    updateTitle(this.element.getAttribute('mv-chart-title'), this.chart);
                 }
             }
 
             if (this.element.hasAttribute('mv-chart-legend')) {
-                // Chart legend, make it lazy to give expressions a chance and then observe changes
-                // TODO
+                const updateLegend = (value, chart) => {
+                    const legend = value.replace(/\s{2,}/g, ' ').trim();
+                        if (legend === '') {
+                            chart.options.legend.display = false;
+                        } else {
+                            chart.options.legend.display = true;
+                            legend
+                                // What if labels contain semicolon inside?
+                                // TODO: add an attribute for a delimiter
+                                .split(';')
+                                .forEach((label, index) => {
+                                    chart.data.datasets[index] = { ...chart.data.datasets[index], label: label.trim() };
+                                });
+                        }
+                }
 
-                this.chartLegendObserver = new Mavo.Observer(this.element, 'mv-chart-legend', () => {
-                    const legend = this.element.getAttribute('mv-chart-legend').replace(/\s{2,}/g, ' ').trim();
-                    if (legend === '') {
-                        this.chart.options.legend.display = false;
-                    } else {
-                        this.chart.options.legend.display = true;
-                        legend
-                            // What if labels contain semicolon inside?
-                            .split(';')
-                            .forEach((label, index) => {
-                                this.chart.data.datasets[index] = { ...this.chart.data.datasets[index], label: label.trim() };
-                            });
-                    }
-                    this.chart.update();
-                });
+                if (Mavo.DOMExpression.search(this.element, 'mv-chart-legend')) {
+                    this.chartLegendObserver = new Mavo.Observer(this.element, 'mv-chart-legend', () => {
+                        updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
+                        this.chart.update();
+                    });
+                } else {
+                    updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
+                }
+
             }
         }
     });

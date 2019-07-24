@@ -39,7 +39,7 @@
                     .replace(/\s{2,}/g, ' ')
                     .trim()
                     .split(';').forEach(style => {
-                        // Known issue: can't use color functions (e.g., rgb())
+                        // Known issue: need to escape commas in color functions (e.g., rgb())
                         datasets.push(Mavo.options(style));
                     });
             }

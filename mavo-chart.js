@@ -145,6 +145,12 @@
                     updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
                 }
             }
+
+            if (this.element.hasAttribute('mv-chart-options')) {
+                this.element.setAttribute('mv-expressions-ignore', 'mv-chart-options');
+                const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
+                $.extend(this.chart.options, JSON.parse(options));
+            }
         }
     });
 

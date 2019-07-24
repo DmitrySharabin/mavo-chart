@@ -144,7 +144,6 @@
                 } else {
                     updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
                 }
-
             }
         }
     });

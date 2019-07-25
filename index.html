@@ -1,35 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://dev.mavo.io/dist/mavo.css">
-    <title>Mavo Chart Plugin</title>
+    <title>Mavo Chart Plugin Demo</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 30em;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 0.5em;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        th {
+            padding-top: 0.8em;
+            padding-bottom: 0.8em;
+            text-align: left;
+            background-color: rgb(67, 96, 116);
+            color: white;
+        }
+
+        [property="chart"] {
+            max-width: 50em;
+        }
+    </style>
 </head>
 <body>
-    <main mv-app="chartDemo" mv-bar="with export">
-        <!-- Chart options -->
-        <meta property="labels" content="[list('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul')]">
-        <meta property="data" content="2, 30, 15, 22, 5, 15, 6 ; 12, 10, 5, 2, 20, 30, 45">
-        <meta property="legend" content="Dataset1, Dataset2">
-        <meta property="title" content="Chart">
-        <meta property="type" mv-edit="#type">
-        <select id="type" hidden>
-            <option value="line">Line</option>
-            <option value="bar">Bar</option>
-        </select>
+    <main mv-app="chartDemo" mv-source="example.json">
+        <header>
+            <h1>Mavo Chart Plugin Demo</h1>
+        </header>
+        <!-- Data table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Bears</th>
+                    <th>Dolphins</th>
+                    <th>Whales</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr property="stats" mv-multiple>
+                    <th property="year"></th>
+                    <td property="bears"></td>
+                    <td property="dolphins"></td>
+                    <td property="whales"></td>
+                </tr>
+            </tbody>
+        </table>
 
+        <!-- Chart -->
         <canvas property="chart"
-                mv-chart-options="{'legend': {'labels': {'fontColor': 'green'}}}"
-                mv-chart-type="[type]"
-                mv-chart-title="[title]"
-                mv-chart-data="[data]"
-                mv-chart-legend="[legend]"
-                mv-chart-labels="[labels]"
-                mv-chart-series-styles="backgroundColor: rgba(255\, 99\, 132\, 0.2), borderColor: #ff6384; backgroundColor: #00008080, borderColor: #000080, borderWidth: 1">
+                mv-chart-title="Wildlife Population"
+                mv-chart-legend="Bears, Dolphins, Whales"
+                mv-chart-legend-position="bottom"
+                mv-chart-data="[stats.bears]; [stats.dolphins]; [stats.whales]"
+                mv-chart-labels="[stats.year]"
+                mv-chart-series-styles="backgroundColor: transparent, borderColor: royalblue; backgroundColor: transparent, borderColor: gray; backgroundColor: transparent, borderColor: orange"
+                mv-chart-options="{'scales': {
+					'xAxes': [{
+						'display': true,
+						'scaleLabel': {
+							'display': true,
+							'labelString': 'Year'
+						}
+					}],
+					'yAxes': [{
+						'display': true,
+						'scaleLabel': {
+							'display': true,
+							'labelString': 'Quantity'
+                        }
+                    }]
+                }}">
             <p>Your browser doesn't support charts in canvas!</p>
         </canvas>
+        <p><b>Credit:</b> the example is taken from <a href="https://www.excel-easy.com/examples/line-chart.html">here</a>.</p>
     </main>
 
     <script src="https://dev.mavo.io/dist/mavo.min.js"></script>

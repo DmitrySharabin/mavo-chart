@@ -55,12 +55,15 @@
                     return value.replace(/\s{2,}/g, ' ').trim();
                 }
 
+                // Check whether the mv-chart-type attribute value is an expression
                 if (Mavo.DOMExpression.search(this.element, 'mv-chart-type')) {
+                    // If yes, add the corresponding observer
                     this.chartTypeObserver = new Mavo.Observer(this.element, 'mv-chart-type', () => {
                         this.chart.config.type = updateType(this.element.getAttribute('mv-chart-type'));
                         this.chart.update();
                     });
                 } else {
+                    // Otherwise, parse the attribute value
                     this.chart.config.type = updateType(this.element.getAttribute('mv-chart-type'));
                 }
             }
@@ -75,12 +78,15 @@
                         });
                 }
 
+                // Check whether the mv-chart-data attribute value is an expression
                 if (Mavo.DOMExpression.search(this.element, 'mv-chart-data')) {
+                    // If yes, add the corresponding observer
                     this.chartDataObserver = new Mavo.Observer(this.element, 'mv-chart-data', () => {
                         updateData(this.element.getAttribute('mv-chart-data'), this.chart);
                         this.chart.update();
                     });
                 } else {
+                    // Otherwise, parse the attribute value
                     updateData(this.element.getAttribute('mv-chart-data'), this.chart);
                 }
             }
@@ -90,12 +96,15 @@
                     return value.split(',').map(label => label.replace(/\s{2,}/g, ' ').trim());
                 }
 
+                // Check whether the mv-chart-labels attribute value is an expression
                 if (Mavo.DOMExpression.search(this.element, 'mv-chart-labels')) {
+                    // If yes, add the corresponding observer
                     this.chartLabelsObserver = new Mavo.Observer(this.element, 'mv-chart-labels', () => {
                         this.chart.data.labels = updateLabels(this.element.getAttribute('mv-chart-labels'));
                         this.chart.update();
                     });
                 } else {
+                    // Otherwise, parse the attribute value
                     this.chart.data.labels = updateLabels(this.element.getAttribute('mv-chart-labels'));
                 }
             }
@@ -111,12 +120,15 @@
                         }
                 }
 
+                // Check whether the mv-chart-title attribute value is an expression
                 if (Mavo.DOMExpression.search(this.element, 'mv-chart-title')) {
+                    // If yes, add the corresponding observer
                     this.chartTitleObserver = new Mavo.Observer(this.element, 'mv-chart-title', () => {
                         updateTitle(this.element.getAttribute('mv-chart-title'), this.chart);
                         this.chart.update();
                     });
                 } else {
+                    // Otherwise, parse the attribute value
                     updateTitle(this.element.getAttribute('mv-chart-title'), this.chart);
                 }
             }
@@ -138,18 +150,22 @@
                         }
                 }
 
+                // Check whether the mv-chart-legend attribute value is an expression
                 if (Mavo.DOMExpression.search(this.element, 'mv-chart-legend')) {
+                    // If yes, add the corresponding observer
                     this.chartLegendObserver = new Mavo.Observer(this.element, 'mv-chart-legend', () => {
                         updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
                         this.chart.update();
                     });
                 } else {
+                    // Otherwise, parse the attribute value
                     updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
                 }
             }
 
             if (this.element.hasAttribute('mv-chart-options')) {
                 this.element.setAttribute('mv-expressions-ignore', 'mv-chart-options');
+                // Parse a chart options
                 const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
                 $.extend(this.chart.options, JSON.parse(options));
             }

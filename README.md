@@ -7,7 +7,39 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 ## Demo
 
 ```markup
+<main mv-app="chartDemo" mv-source="example.json" mv-plugins="mv-chart">
+        <!-- Data table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Bears</th>
+                    <th>Dolphins</th>
+                    <th>Whales</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr property="stats" mv-multiple>
+                    <td property="year"></td>
+                    <td property="bears"></td>
+                    <td property="dolphins"></td>
+                    <td property="whales"></td>
+                </tr>
+            </tbody>
+        </table>
 
+        <!-- Chart -->
+        <canvas property="chart"
+                mv-chart-title="Wildlife Population"
+                mv-chart-legend="Bears, Dolphins, Whales"
+                mv-chart-legend-position="bottom"
+                mv-chart-data="[stats.bears]; [stats.dolphins]; [stats.whales]"
+                mv-chart-labels="[stats.year]"
+                mv-chart-series-styles="backgroundColor: transparent, borderColor: royalblue; backgroundColor: transparent, borderColor: gray; backgroundColor: transparent, borderColor: orange">
+            <p>Your browser doesn't support charts in canvas!</p>
+        </canvas>
+        <p>Credit: the example is taken from https://www.excel-easy.com/examples/line-chart.html</p>
+    </main>
 ```
 
 ## Core attributes
@@ -36,3 +68,5 @@ The syntax of this attribute is a CSS-like list of declarations, where you shoul
 **Caution:** This section requires an understanding of JSON. It is aimed at advanced users. You do not need to understand JSON to use Mavo and this plugin!
 
 `mv-chart-options`
+
+Examples of different charts with their code can be found [here](https://www.chartjs.org/samples/latest/).

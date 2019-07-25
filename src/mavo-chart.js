@@ -17,6 +17,9 @@
 
         init: function () {
 
+            // We don't need charts to be stored anywhere
+            this.storage = 'none';
+
             // Default chart
             const chartObj = {
                 type: 'line',

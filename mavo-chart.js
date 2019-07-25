@@ -12,7 +12,6 @@
         default: true,
         selector: SELECTOR,
         attribute: null,
-        hasChildren: true,
         modes: 'read', // Charts are read-only!
 
         init: function () {

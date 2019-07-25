@@ -127,9 +127,9 @@
                         } else {
                             chart.options.legend.display = true;
                             legend
-                                // What if labels contain semicolon inside?
-                                // TODO: add an attribute for a delimiter
-                                .split(';')
+                                // What if labels contain commas inside?
+                                // TODO: add an escape via backslash feature
+                                .split(',')
                                 .forEach((label, index) => {
                                     chart.data.datasets[index] = { ...chart.data.datasets[index], label: label.trim() };
                                 });

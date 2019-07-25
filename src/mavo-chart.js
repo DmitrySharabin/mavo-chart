@@ -161,6 +161,8 @@
                     // Otherwise, parse the attribute value
                     updateLegend(this.element.getAttribute('mv-chart-legend'), this.chart);
                 }
+            } else {
+                this.chart.options.legend.display = false;
             }
 
             if (this.element.hasAttribute('mv-chart-options')) {

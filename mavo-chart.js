@@ -1,6 +1,9 @@
 (function ($) {
     const SELECTOR = 'canvas.mv-chart, canvas[mv-chart-data]';
 
+    // For these types of charts, styles are handled differently
+    const specialChartTypes = ['pie', 'doughnut', 'polarArea'];
+
     Mavo.Plugins.register('chart', {
         dependencies: [
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js',
@@ -72,6 +75,24 @@
                         .forEach((dataset, index) => {
                             const data = dataset.split(',').map(num => +num);
                             chart.data.datasets[index] = { ...chart.data.datasets[index], data };
+                            // Styles haven't been set via the mv-chart-series-styles attribute,
+                            // or we have a new series of data
+                            if (index >= datasets.length) {
+                                // Add new styles depending on the chart type
+                                if (specialChartTypes.includes(chart.config.type)) {
+                                    chart.data.datasets[index].backgroundColor = [];
+                                    for (let i = 0; i < data.length; i++) {
+                                        chart.data.datasets[index].backgroundColor.push(randomColor());
+                                    }
+                                } else {
+                                    const color = randomColor();
+                                    chart.data.datasets[index] = {
+                                        ...chart.data.datasets[index],
+                                        borderColor: color,
+                                        backgroundColor: `${color}4d` // Add the alpha channel to the generated color
+                                    };
+                                }
+                            }
                         });
                 }
 
@@ -167,6 +188,12 @@
                 // Parse a chart options
                 const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
                 $.extend(this.chart.options, JSON.parse(options));
+            }
+
+            // Random color generator
+            // Credit: https://www.paulirish.com/2009/random-hex-color-code-snippets/
+            const randomColor = () => {
+                return `#${Math.random().toString(16).slice(2, 8).slice(-6)}`;
             }
         }
     });

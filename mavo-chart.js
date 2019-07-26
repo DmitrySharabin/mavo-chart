@@ -21,7 +21,7 @@
 
             // Default chart
             const chartObj = {
-                type: 'line',
+                type: this.element.getAttribute('mv-chart-type') ||'line',
                 options: {
                     title: {
                         position: this.element.getAttribute('mv-chart-title-position') || 'top'
@@ -50,24 +50,6 @@
             $.extend(this.chart.data.datasets, datasets);
 
             // Observers for live attributes
-            if (this.element.hasAttribute('mv-chart-type')) {
-                const updateType = (value) => {
-                    return value.replace(/\s{2,}/g, ' ').trim();
-                }
-
-                // Check whether the mv-chart-type attribute value is an expression
-                if (Mavo.DOMExpression.search(this.element, 'mv-chart-type')) {
-                    // If yes, add the corresponding observer
-                    this.chartTypeObserver = new Mavo.Observer(this.element, 'mv-chart-type', () => {
-                        this.chart.config.type = updateType(this.element.getAttribute('mv-chart-type'));
-                        this.chart.update();
-                    });
-                } else {
-                    // Otherwise, parse the attribute value
-                    this.chart.config.type = updateType(this.element.getAttribute('mv-chart-type'));
-                }
-            }
-
             if (this.element.hasAttribute('mv-chart-data')) {
                 const updateData = (value, chart) => {
                     value
@@ -171,6 +153,7 @@
                 const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
                 $.extend(this.chart.options, JSON.parse(options));
             }
+            console.log(this.chart.data);
         }
     });
 

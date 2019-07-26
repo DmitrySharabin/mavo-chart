@@ -64,7 +64,7 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 
 | Name                       | Purpose | Live? | Default Value |
 |----------------------------|---------|-------|---------------|
-| `mv-chart-type`            |         | ✔︎     | `Line`        |
+| `mv-chart-type`            |         |       |               |
 | `mv-chart-data`            |         | ✔︎     |               |
 | `mv-chart-labels`          |         | ✔︎     |               |
 | `mv-chart-title`           |         | ✔︎     |               |

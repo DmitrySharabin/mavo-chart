@@ -35,7 +35,7 @@
             color: white;
         }
 
-        [property="chart"] {
+        canvas {
             max-width: 50em;
         }
     </style>
@@ -66,7 +66,7 @@
         </table>
 
         <!-- Chart -->
-        <canvas property="chart"
+        <canvas property="lineChart"
                 mv-chart-title="Wildlife Population"
                 mv-chart-legend="Bears, Dolphins, Whales"
                 mv-chart-legend-position="bottom"
@@ -91,7 +91,26 @@
                 }}">
             <p>Your browser doesn't support charts in canvas!</p>
         </canvas>
-        <p><b>Credit:</b> the example is taken from <a href="https://www.excel-easy.com/examples/line-chart.html">here</a>.</p>
+
+        <label>
+            Show prediction about:
+            <select property="species">
+                <option value="bears">Bears</option>
+                <option value="dolphins">Dolphins</option>
+                <option value="whales">Whales</option>
+            </select>
+        </label>
+
+        <canvas property="doughnutChart"
+                mv-chart-type="doughnut"
+                mv-chart-title="Population of [readable(species)]"
+                mv-chart-data="[if(species = 'bears', stats.bears, if(species = 'dolphins', stats.dolphins, stats.whales))]"
+                mv-chart-labels="[stats.year]">
+            <p>Your browser doesn't support charts in canvas!</p>
+        </canvas>
+        <p>
+            <b>Credit:</b> the example is taken from <a href="https://www.excel-easy.com/examples/line-chart.html">here</a>.
+        </p>
     </main>
 
     <script src="https://dev.mavo.io/dist/mavo.min.js"></script>

@@ -4,6 +4,12 @@
     // For these types of charts, styles are handled differently
     const specialChartTypes = ['pie', 'doughnut', 'polarArea'];
 
+    // Random color generator
+    // Credit: https://www.paulirish.com/2009/random-hex-color-code-snippets/
+    const randomColor = () => {
+        return `#${Math.random().toString(16).slice(2, 8).slice(-6)}`;
+    }
+
     Mavo.Plugins.register('chart', {
         dependencies: [
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js',
@@ -188,12 +194,6 @@
                 // Parse a chart options
                 const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
                 $.extend(this.chart.options, JSON.parse(options));
-            }
-
-            // Random color generator
-            // Credit: https://www.paulirish.com/2009/random-hex-color-code-snippets/
-            const randomColor = () => {
-                return `#${Math.random().toString(16).slice(2, 8).slice(-6)}`;
             }
         }
     });

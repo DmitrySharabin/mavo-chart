@@ -19,15 +19,30 @@
             // We don't need charts to be stored anywhere
             this.storage = 'none';
 
+            let chartType = this.element.getAttribute('mv-chart-type');
+            if (chartType) {
+                chartType = chartType.replace(/\s{2,}/g, ' ').trim();
+            }
+
+            let chartTitlePosition = this.element.getAttribute('mv-chart-title-position');
+            if (chartTitlePosition) {
+                chartTitlePosition = chartTitlePosition.replace(/\s{2,}/g, ' ').trim();
+            }
+
+            let chartLegendPosition = this.element.getAttribute('mv-chart-legend-position');
+            if (chartLegendPosition) {
+                chartLegendPosition = chartLegendPosition.replace(/\s{2,}/g, ' ').trim();
+            }
+
             // Default chart
             const chartObj = {
-                type: this.element.getAttribute('mv-chart-type') ||'line',
+                type: chartType ||'line',
                 options: {
                     title: {
-                        position: this.element.getAttribute('mv-chart-title-position') || 'top'
+                        position: chartTitlePosition || 'top'
                     },
                     legend: {
-                        position: this.element.getAttribute('mv-chart-legend-position') || 'top'
+                        position: chartLegendPosition || 'top'
                     }
                 }
             }
@@ -153,7 +168,6 @@
                 const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
                 $.extend(this.chart.options, JSON.parse(options));
             }
-            console.log(this.chart.data);
         }
     });
 

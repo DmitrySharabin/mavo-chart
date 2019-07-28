@@ -10,6 +10,17 @@
         return `#${Math.random().toString(16).slice(2, 8).slice(-6)}`;
     }
 
+    // Utility function for parsing styles and chart options
+    const parseOptions = (options) => {
+        const ret = options
+            .replace(/[{}\[\]]/g, match => ` ${match} `)
+            .replace(/\s{2,}/g, ' ')
+            .trim()
+            .replace(/\s*\w+\s*:/g, match => `"${match.replace(':', '').trim()}":`)
+            .replace(/\:\s\w+/g, match => `: "${match.replace(': ', '')}"`);
+        return `{${ret}}`;
+    }
+
     Mavo.Plugins.register('chart', {
         dependencies: [
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js',
@@ -199,9 +210,17 @@
             }
 
             if (this.element.hasAttribute('mv-chart-options')) {
-                this.element.setAttribute('mv-expressions-ignore', 'mv-chart-options');
+                // We need to disable expressions for the mv-chart-options attribute
+                // but not to lose its value if any
+                let ignoredAttributes = this.element.getAttribute('mv-expressions-ignore');
+                if (ignoredAttributes) {
+                    ignoredAttributes = `${ignoredAttributes}, mv-chart-options`
+                } else {
+                    ignoredAttributes = 'mv-chart-options'
+                }
+                this.element.setAttribute('mv-expressions-ignore', ignoredAttributes);
                 // Parse a chart options
-                const options = this.element.getAttribute('mv-chart-options').replace(/'/g, '"');
+                const options = parseOptions(this.element.getAttribute('mv-chart-options'));
                 $.extend(this.chart.options, JSON.parse(options));
             }
         }

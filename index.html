@@ -113,7 +113,9 @@
                 mv-chart-type="doughnut"
                 mv-chart-title="Population of [readable(species)]"
                 mv-chart-data="[if(species = 'bears', stats.bears, if(species = 'dolphins', stats.dolphins, stats.whales))]"
-                mv-chart-labels="[stats.year]">
+                mv-chart-labels="[stats.year]"
+                mv-expressions-ignore="mv-chart-series-styles"
+                mv-chart-series-styles="backgroundColor: [#5899da, rgb(232, 116, 59), hotpink, rgba(69, 170, 121, 1), hsla(269, 54%, 59%, 1), #6c8893]">
             <p>Your browser doesn't support charts in canvas!</p>
         </canvas>
         <p>

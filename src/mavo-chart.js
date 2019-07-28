@@ -47,17 +47,35 @@
             // Parse the static attributes
             let chartType = this.element.getAttribute('mv-chart-type');
             if (chartType) {
-                chartType = chartType.replace(/\s{2,}/g, ' ').trim();
+                const expr = Mavo.DOMExpression.search(this.element, 'mv-chart-type');
+                // If we have an expression, we need to evaluate it first
+                if (expr) {
+                    expr.update();
+                    chartType = this.element.getAttribute('mv-chart-type');
+                }
+                chartType = chartType.trim();
             }
 
             let chartTitlePosition = this.element.getAttribute('mv-chart-title-position');
             if (chartTitlePosition) {
-                chartTitlePosition = chartTitlePosition.replace(/\s{2,}/g, ' ').trim();
+                const expr = Mavo.DOMExpression.search(this.element, 'mv-chart-title-position');
+                // If we have an expression, we need to evaluate it first
+                if (expr) {
+                    expr.update();
+                    chartTitlePosition = this.element.getAttribute('mv-chart-title-position');
+                }
+                chartTitlePosition = chartTitlePosition.trim();
             }
 
             let chartLegendPosition = this.element.getAttribute('mv-chart-legend-position');
             if (chartLegendPosition) {
-                chartLegendPosition = chartLegendPosition.replace(/\s{2,}/g, ' ').trim();
+                const expr = Mavo.DOMExpression.search(this.element, 'mv-chart-legend-position');
+                // If we have an expression, we need to evaluate it first
+                if (expr) {
+                    expr.update();
+                    chartLegendPosition = this.element.getAttribute('mv-chart-legend-position');
+                }
+                chartLegendPosition = chartLegendPosition.trim();
             }
 
             // Default chart

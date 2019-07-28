@@ -11,7 +11,7 @@
     }
 
     // Utility function for parsing styles and chart options
-    const parseOptions = options => `{${options.replace(/((rgb|hsl)a?\(.+\))|(#?\w+)/g, match => `"${match}"`)}}`;
+    const parseOptions = options => `{${options.replace(/((rgb|hsl)a?\(.+?\))|(#?\w+)/g, match => `"${match}"`)}}`;
 
     Mavo.Plugins.register('chart', {
         dependencies: [

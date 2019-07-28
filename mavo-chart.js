@@ -1,4 +1,4 @@
-(function ($) {
+(function ($, $$) {
     const SELECTOR = 'canvas.mv-chart, canvas[mv-chart-data]';
 
     // For these types of charts, styles are handled differently
@@ -11,21 +11,26 @@
     }
 
     // Utility function for parsing styles and chart options
-    const parseOptions = (options) => {
-        const ret = options
-            .replace(/[{}\[\]]/g, match => ` ${match} `)
-            .replace(/\s{2,}/g, ' ')
-            .trim()
-            .replace(/\s*\w+\s*:/g, match => `"${match.replace(':', '').trim()}":`)
-            .replace(/\:\s\w+/g, match => `: "${match.replace(': ', '')}"`);
-        return `{${ret}}`;
-    }
+    const parseOptions = options => `{${options.replace(/((rgb|hsl)a?\(.+\))|(#?\w+)/g, match => `"${match}"`)}}`;
 
     Mavo.Plugins.register('chart', {
         dependencies: [
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js',
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css'
-        ]
+        ],
+
+        // Disable expressions in the mv-chart-options attribute
+        init: function () {
+            for (element of $$(SELECTOR)) {
+                let ignoredAttributes = ['mv-chart-options'];
+                if (element.hasAttribute('mv-expressions-ignore')) {
+                    element.getAttribute('mv-expressions-ignore').split(',').forEach(el => {
+                        Mavo.pushUnique(ignoredAttributes, el.trim());
+                    });
+                }
+                element.setAttribute('mv-expressions-ignore', ignoredAttributes.join(', '));
+            }
+        }
     });
 
     Mavo.Elements.register('chart', {
@@ -71,15 +76,15 @@
             const datasets = [];
 
             // Parse styles of series of data
-            const seriesStyles = this.element.getAttribute('mv-chart-series-styles');
+            let seriesStyles = this.element.getAttribute('mv-chart-series-styles');
             if (seriesStyles) {
-                seriesStyles
-                    .replace(/\s{2,}/g, ' ')
-                    .trim()
-                    .split(';').forEach(style => {
-                        // Known issue: need to escape commas in color functions (e.g., rgb())
-                        datasets.push(Mavo.options(style));
-                    });
+                const expr = Mavo.DOMExpression.search(this.element, 'mv-chart-series-styles');
+                // If we have an expression, we need to evaluate it first
+                if (expr) {
+                    expr.update();
+                    seriesStyles = this.element.getAttribute('mv-chart-series-styles');
+                }
+                seriesStyles.split(';').forEach(style => datasets.push(JSON.parse(parseOptions(style))));
             }
 
             this.chart = new Chart(this.element.getContext('2d'), chartObj);
@@ -210,15 +215,6 @@
             }
 
             if (this.element.hasAttribute('mv-chart-options')) {
-                // We need to disable expressions for the mv-chart-options attribute
-                // but not to lose its value if any
-                let ignoredAttributes = this.element.getAttribute('mv-expressions-ignore');
-                if (ignoredAttributes) {
-                    ignoredAttributes = `${ignoredAttributes}, mv-chart-options`
-                } else {
-                    ignoredAttributes = 'mv-chart-options'
-                }
-                this.element.setAttribute('mv-expressions-ignore', ignoredAttributes);
                 // Parse a chart options
                 const options = parseOptions(this.element.getAttribute('mv-chart-options'));
                 $.extend(this.chart.options, JSON.parse(options));
@@ -226,4 +222,4 @@
         }
     });
 
-})(Bliss);
+})(Bliss, Bliss.$);

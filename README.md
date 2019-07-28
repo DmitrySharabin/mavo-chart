@@ -1,7 +1,5 @@
 # Mavo Chart
 
-Visualize data in your Mavo apps with animated, customizable, and responsive charts. Uses [Chart.js](https://www.chartjs.org/).
-
 To use, either give a class of `mv-chart` or specify chart data via the `mv-chart-data` attribute to the `canvas` element you want to enable Chart on.
 
 ## Demo

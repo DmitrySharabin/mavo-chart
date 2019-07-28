@@ -86,8 +86,16 @@
                             if (index >= datasets.length) {
                                 // Add new styles depending on the chart type
                                 if (specialChartTypes.includes(chart.config.type)) {
-                                    chart.data.datasets[index].backgroundColor = [];
-                                    for (let i = 0; i < data.length; i++) {
+                                    // What if there were colors already?
+                                    // Save previously added colors and add new if needed
+                                    let numColors;
+                                    if (chart.data.datasets[index].backgroundColor) {
+                                        numColors = chart.data.datasets[index].backgroundColor.length;
+                                    } else {
+                                        chart.data.datasets[index].backgroundColor = [];
+                                        numColors = 0;
+                                    }
+                                    for (let i = numColors; i < data.length; i++) {
                                         chart.data.datasets[index].backgroundColor.push(randomColor());
                                     }
                                 } else {

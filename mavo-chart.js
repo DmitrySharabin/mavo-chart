@@ -28,6 +28,7 @@
             // We don't need charts to be stored anywhere
             this.storage = 'none';
 
+            // Parse the static attributes
             let chartType = this.element.getAttribute('mv-chart-type');
             if (chartType) {
                 chartType = chartType.replace(/\s{2,}/g, ' ').trim();

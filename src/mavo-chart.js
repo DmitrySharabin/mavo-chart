@@ -80,7 +80,7 @@
 
             // Default chart
             const chartObj = {
-                type: chartType ||'line',
+                type: chartType || 'line',
                 options: {
                     title: {
                         position: chartTitlePosition || 'top'

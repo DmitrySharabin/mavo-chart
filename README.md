@@ -5,7 +5,8 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 ## Demo
 
 ```markup
-<main mv-app="chartDemo" mv-source="example.json" mv-plugins="chart">
+<main mv-app="chartDemo" mv-plugins="chart"
+      mv-source="https://raw.githubusercontent.com/DmitrySharabin/mavo-chart/master/example.json" >
     <header>
         <h1>Mavo Chart Plugin Demo</h1>
     </header>

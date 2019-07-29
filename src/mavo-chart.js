@@ -102,7 +102,11 @@
                     expr.update();
                     seriesStyles = this.element.getAttribute('mv-chart-series-styles');
                 }
-                seriesStyles.split(';').forEach(style => datasets.push(JSON.parse(parseOptions(style))));
+                try {
+                    seriesStyles.split(';').forEach(style => datasets.push(JSON.parse(parseOptions(style))));
+                } catch (error) {
+                    Mavo.warn(this.mavo._('chart-styles-parse-error'));
+                }
             }
 
             this.chart = new Chart(this.element.getContext('2d'), chartObj);
@@ -239,11 +243,21 @@
             }
 
             if (this.element.hasAttribute('mv-chart-options')) {
-                // Parse a chart options
-                const options = parseOptions(this.element.getAttribute('mv-chart-options'));
-                $.extend(this.chart.options, JSON.parse(options));
+                try {
+                    // Parse a chart options
+                    const options = parseOptions(this.element.getAttribute('mv-chart-options'));
+                    $.extend(this.chart.options, JSON.parse(options));
+                } catch (error) {
+                    Mavo.warn(this.mavo._('chart-options-parse-error'));
+                }
             }
         }
     });
+
+    // Think of localization from the very beginning :)
+	Mavo.Locale.register('en', {
+		'chart-styles-parse-error': 'Invalid mv-chart-series-styles attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart.',
+		'chart-options-parse-error': 'Invalid mv-chart-options attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart.',
+	});
 
 })(Bliss, Bliss.$);

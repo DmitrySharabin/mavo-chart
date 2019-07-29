@@ -21,8 +21,8 @@
 
         // Disable expressions in the mv-chart-options attribute
         init: function () {
-            for (element of $$(SELECTOR)) {
-                let ignoredAttributes = ['mv-chart-options'];
+            for (let element of $$(SELECTOR)) {
+                const ignoredAttributes = ['mv-chart-options'];
                 if (element.hasAttribute('mv-expressions-ignore')) {
                     element.getAttribute('mv-expressions-ignore').split(',').forEach(el => {
                         Mavo.pushUnique(ignoredAttributes, el.trim());

@@ -45,7 +45,7 @@
     </style>
 </head>
 <body>
-    <main mv-app="chartDemo" mv-source="example.json">
+    <main mv-app="chartDemo" mv-source="example.json" mv-plugins="chart">
         <header>
             <h1>Mavo Chart Plugin Demo</h1>
         </header>
@@ -73,7 +73,7 @@
             </tbody>
         </table>
 
-        <!-- Chart -->
+        <!-- Charts -->
         <canvas property="lineChart"
                 mv-chart-title="Wildlife Population"
                 mv-chart-legend="Bears, Dolphins, Whales"
@@ -124,6 +124,5 @@
     </main>
 
     <script src="https://dev.mavo.io/dist/mavo.min.js"></script>
-    <script src="mavo-chart.js"></script>
 </body>
 </html>

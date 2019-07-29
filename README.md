@@ -5,7 +5,7 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 ## Demo
 
 ```markup
-<main mv-app="chartDemo" mv-source="example.json">
+<main mv-app="chartDemo" mv-source="example.json" mv-plugins="chart">
     <header>
         <h1>Mavo Chart Plugin Demo</h1>
     </header>
@@ -33,7 +33,7 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
         </tbody>
     </table>
 
-    <!-- Chart -->
+    <!-- Charts -->
     <canvas property="lineChart"
             mv-chart-title="Wildlife Population"
             mv-chart-legend="Bears, Dolphins, Whales"
@@ -82,6 +82,42 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
         <b>Credit:</b> the example is taken from <a href="https://www.excel-easy.com/examples/line-chart.html">here</a>.
     </p>
 </main>
+<style>
+    .mv-bar {
+        margin: 0.5em 0;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 30em;
+    }
+
+    td,
+    th {
+        border: 1px solid #ddd;
+        padding: 0.5em;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    th {
+        padding-top: 0.8em;
+        padding-bottom: 0.8em;
+        text-align: left;
+        background-color: rgb(67, 96, 116);
+        color: white;
+    }
+
+    canvas {
+        max-width: 50em;
+    }
+</style>
 ```
 
 ## Core attributes

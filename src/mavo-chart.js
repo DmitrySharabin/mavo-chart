@@ -160,7 +160,12 @@
 
             if (this.element.hasAttribute('mv-chart-labels')) {
                 const updateLabels = (value) => {
-                    return value.split(',').map(label => label.replace(/\s{2,}/g, ' ').trim());
+                    return value
+                        // What if labels contain commas inside?
+                        // We let users escape them via backslash
+                        .replace(/\\,/g, '$1')
+                        .split(',')
+                        .map(label => label.replace(/\s{2,}/g, ' ').trim().replace('$1', ','));
                 }
 
                 // Check whether the mv-chart-labels attribute value is an expression
@@ -179,12 +184,12 @@
             if (this.element.hasAttribute('mv-chart-title')) {
                 const updateTitle = (value, chart) => {
                     const title = value.replace(/\s{2,}/g, ' ').trim();
-                        if (title === '') {
-                            chart.options.title.display = false;
-                        } else {
-                            chart.options.title.text = title;
-                            chart.options.title.display = true;
-                        }
+                    if (title === '') {
+                        chart.options.title.display = false;
+                    } else {
+                        chart.options.title.text = title;
+                        chart.options.title.display = true;
+                    }
                 }
 
                 // Check whether the mv-chart-title attribute value is an expression
@@ -203,18 +208,19 @@
             if (this.element.hasAttribute('mv-chart-legend')) {
                 const updateLegend = (value, chart) => {
                     const legend = value.replace(/\s{2,}/g, ' ').trim();
-                        if (legend === '') {
-                            chart.options.legend.display = false;
-                        } else {
-                            chart.options.legend.display = true;
-                            legend
-                                // What if labels contain commas inside?
-                                // TODO: add an escape via backslash feature
-                                .split(',')
-                                .forEach((label, index) => {
-                                    chart.data.datasets[index] = { ...chart.data.datasets[index], label: label.trim() };
-                                });
-                        }
+                    if (legend === '') {
+                        chart.options.legend.display = false;
+                    } else {
+                        chart.options.legend.display = true;
+                        legend
+                            // What if legend contains commas inside?
+                            // We let users escape them via backslash
+                            .replace(/\\,/g, '$1')
+                            .split(',')
+                            .forEach((label, index) => {
+                                chart.data.datasets[index] = { ...chart.data.datasets[index], label: label.trim().replace('$1', ',') };
+                            });
+                    }
                 }
 
                 // Check whether the mv-chart-legend attribute value is an expression

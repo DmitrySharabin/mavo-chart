@@ -135,6 +135,8 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 | `mv-chart-legend`          | Contains a *comma-separated* list of labels that identifies the colors that are assigned to the data series or categories in a chart. | ✔︎     |               |
 | `mv-chart-legend-position` | Defines a chart legend position. Possible values: `top`, `right`, `bottom`, `left`.       |       | `top`         |
 
+**Note:** If you need to use a comma as a part of a label and/or the legend item, you need to *escape it via backslash*, like so: `mv-chart-legend="Distance\, km, Area\, square km"`
+
 ## Data series customization
 
 The Chart plugin supports [a number of options for styling data series](https://www.chartjs.org/docs/latest/configuration/elements.html#line-configuration). You can specify these options on a per-series basis by using the `mv-chart-series-styles` attribute.
@@ -144,11 +146,13 @@ The syntax of this attribute is a CSS-like list of declarations, where you shoul
 
 **Caution:** This section requires an understanding of JSON. It is aimed at advanced users. You do not need to understand JSON to use Mavo and this plugin!
 
-`mv-chart-options`
+The Chart plugin allows you to configure some aspects of a chart look and feel and customize its behavior by setting [options](https://www.chartjs.org/docs/latest/configuration/) via the `mv-chart-options` attribute. The syntax of this attribute is a JSON-like object. `mv-chart-options` does not require curly braces. If you include them, they will be considered part of the JSON object.
+
+Styles of data series can also be specified via a JSON-like value of the `mv-chart-series-styles` attribute. To use JSON-like syntax in the `mv-chart-series-styles` attribute, you need either [disable expressions](https://mavo.io/docs/expressions#disabling-expressions) for this attribute via the `mv-expressions-ignore` or [change the syntax of the expressions](https://mavo.io/docs/expressions#using-expressions) with the `mv-expressions` attribute.
 
 Expressions in the `mv-chart-options` are disabled by default.
 
-To use JSON-like syntax in the `mv-chart-series-styles` attribute, you need either [disable expressions](https://mavo.io/docs/expressions#disabling-expressions) for this attribute via the `mv-expressions-ignore` or [change the syntax of the expressions](https://mavo.io/docs/expressions#using-expressions) with the `mv-expressions` attribute.
+Both of these cases are shown in the **Demo** so that you can play with it.
 
 ## Localization
 

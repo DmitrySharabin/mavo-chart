@@ -1,6 +1,6 @@
 # Mavo Chart
 
-To use, either give a class of `mv-chart` or specify chart data via the `mv-chart-data` attribute to the `canvas` element you want to enable Chart on.
+To use, either give a class of `mv-chart` or specify chart data via the `mv-chart-data` attribute to the `canvas` element you want to enable Chart on. The `canvas` element must be a **property**.
 
 ## Demo
 
@@ -127,18 +127,18 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 
 | Name                       | Purpose | Live? | Default Value |
 |----------------------------|---------|-------|---------------|
-| `mv-chart-type`            |         |       | `Line`        |
-| `mv-chart-data`            |         | ✔︎     |               |
-| `mv-chart-labels`          |         | ✔︎     |               |
-| `mv-chart-title`           |         | ✔︎     |               |
-| `mv-chart-title-position`  |         |       | `Top`         |
-| `mv-chart-legend`          |         | ✔︎     |               |
-| `mv-chart-legend-position` |         |       | `Top`         |
+| `mv-chart-type`            | Defines a chart type. Possible values: `line`, `bar`, `horizontalBar`, `radar`, `pie`, `doughnut`, `polarArea`, `bubble`, `scatter`. More information about built-in chart types and their options can be found [here](https://www.chartjs.org/docs/latest/charts/).       |       | `line`        |
+| `mv-chart-data`            | Defines data series. Every data series is a *comma-separated* list of values that will be plotted on a chart. The format of the values depends on a chart type. If there are a few data series, they are *separated by a semicolon*.        | ✔︎     |               |
+| `mv-chart-labels`          | Defines a list of *comma-separated* values that appear as the labels on the category axis.        | ✔︎     |               |
+| `mv-chart-title`           | Defines a chart title.        | ✔︎     |               |
+| `mv-chart-title-position`  | Defines a chart title position. Possible values: `top`, `right`, `bottom`, `left`.        |       | `top`         |
+| `mv-chart-legend`          | Contains a *comma-separated* list of labels that identifies the colors that are assigned to the data series or categories in a chart. | ✔︎     |               |
+| `mv-chart-legend-position` | Defines a chart legend position. Possible values: `top`, `right`, `bottom`, `left`.       |       | `top`         |
 
 ## Data series customization
 
 The Chart plugin supports [a number of options for styling data series](https://www.chartjs.org/docs/latest/configuration/elements.html#line-configuration). You can specify these options on a per-series basis by using the `mv-chart-series-styles` attribute.
-The syntax of this attribute is a CSS-like list of declarations, where you should use commas to separate the option-value pairs and semicolons to separate style declarations of different series.
+The syntax of this attribute is a CSS-like list of declarations, where you should use *commas* to separate the option-value pairs and *semicolons* to separate style declarations of different data series.
 
 ## Advanced customization
 
@@ -146,4 +146,21 @@ The syntax of this attribute is a CSS-like list of declarations, where you shoul
 
 `mv-chart-options`
 
-Examples of different charts with their code can be found [here](https://www.chartjs.org/samples/latest/).
+Expressions in the `mv-chart-options` are disabled by default.
+
+To use JSON-like syntax in the `mv-chart-series-styles` attribute, you need either [disable expressions](https://mavo.io/docs/expressions#disabling-expressions) for this attribute via the `mv-expressions-ignore` or [change the syntax of the expressions](https://mavo.io/docs/expressions#using-expressions) with the `mv-expressions` attribute.
+
+## Localization
+
+In case of an error, while reading the `mv-chart-series-styles` and `mv-chart-options` attributes, the plugin writes warnings in English about that to the console. You can localize these warning messages into a different language.
+
+Here is the list of `id`s of phrases to change/localize and their default values:
+
+| id | Default Value |
+|---|---|
+| `chart-styles-parse-error` | Invalid mv-chart-series-styles attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart. |
+| `chart-options-parse-error` | Invalid mv-chart-options attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart. |
+
+## Further explorations
+
+Need more examples? No problem! Examples of different charts with their code can be found [here](https://www.chartjs.org/samples/latest/).

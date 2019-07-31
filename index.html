@@ -118,6 +118,17 @@
                 mv-chart-series-styles="backgroundColor: [#5899da, rgb(232, 116, 59), hotpink, rgba(69, 170, 121, 1), hsla(269, 54%, 59%, 1), #6c8893]">
             <p>Your browser doesn't support charts in canvas!</p>
         </canvas>
+
+        <h2>Chart with Theme</h2>
+        <canvas property="horizontalBarChart"
+                mv-chart-type="horizontalBar"
+                mv-chart-title="Wildlife Population"
+                mv-chart-data="[stats.bears]; [stats.dolphins]; [stats.whales]"
+                mv-chart-labels="[stats.year]"
+                mv-chart-legend="Bears, Dolphins, Whales"
+                mv-chart-theme="tableau.Classic10">
+            <p>Your browser doesn't support charts in canvas!</p>
+        </canvas>
         <p>
             <b>Credit:</b> the example is taken from <a href="https://www.excel-easy.com/examples/line-chart.html">here</a>.
         </p>

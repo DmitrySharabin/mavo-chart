@@ -30,6 +30,12 @@
                 }
                 element.setAttribute('mv-expressions-ignore', ignoredAttributes.join(', '));
             }
+
+            // Check whether we need to include the colorschemes plugin
+            const themeSelector = SELECTOR.split(', ').map(selector => `${selector}[mv-chart-theme]`).join(', ');
+            if ($(themeSelector)) {
+                $.load('https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes');
+            }
         }
     });
 
@@ -120,9 +126,9 @@
                         .forEach((dataset, index) => {
                             const data = dataset.split(',').map(num => +num);
                             chart.data.datasets[index] = { ...chart.data.datasets[index], data };
-                            // Styles haven't been set via the mv-chart-series-styles attribute,
-                            // or we have a new series of data
-                            if (index >= datasets.length) {
+                            // Styles haven't been set via either mv-chart-series-styles or mv-chart-theme,
+                            // and/or we have a new series of data
+                            if (!chart.options.plugins.colorschemes && index >= datasets.length) {
                                 // Add new styles depending on the chart type
                                 if (specialChartTypes.includes(chart.config.type)) {
                                     // What if there were colors already?
@@ -250,6 +256,18 @@
                 } catch (error) {
                     Mavo.warn(this.mavo._('chart-options-parse-error'));
                 }
+            }
+
+            // Add a theme to a chart if needed and override the default styling
+            let theme = this.element.getAttribute('mv-chart-theme');
+            if (theme) {
+                const expr = Mavo.DOMExpression.search(this.element, 'mv-chart-theme');
+                // If we have an expression, we need to evaluate it first
+                if (expr) {
+                    expr.update();
+                    theme = this.element.getAttribute('mv-chart-theme');
+                }
+                $.extend(this.chart.options, { plugins: { colorschemes: { scheme: theme.trim(), override: true } } });
             }
         }
     });

@@ -1,22 +1,14 @@
 (function ($, $$) {
     const SELECTOR = 'canvas.mv-chart, canvas[mv-chart-data]';
 
-    // For these types of charts, styles are handled differently
-    const specialChartTypes = ['pie', 'doughnut', 'polarArea'];
-
-    // Random color generator
-    // Credit: https://www.paulirish.com/2009/random-hex-color-code-snippets/
-    const randomColor = () => {
-        return `#${Math.random().toString(16).slice(2, 8).slice(-6)}`;
-    }
-
     // Utility function for parsing styles and chart options
     const parseOptions = options => `{${options.replace(/((rgb|hsl)a?\(.+?\))|(#?\w+)/g, match => `"${match}"`)}}`;
 
     Mavo.Plugins.register('chart', {
         dependencies: [
             'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css'
+            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css',
+            'https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes'
         ],
 
         // Disable expressions in the mv-chart-options attribute
@@ -29,12 +21,6 @@
                     });
                 }
                 element.setAttribute('mv-expressions-ignore', ignoredAttributes.join(', '));
-            }
-
-            // Check whether we need to include the colorschemes plugin
-            const themeSelector = SELECTOR.split(', ').map(selector => `${selector}[mv-chart-theme]`).join(', ');
-            if ($(themeSelector)) {
-                $.load('https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes');
             }
         }
     });
@@ -118,6 +104,9 @@
             this.chart = new Chart(this.element.getContext('2d'), chartObj);
             $.extend(this.chart.data.datasets, datasets);
 
+            // Apply default color scheme
+            $.extend(this.chart.options, { plugins: { colorschemes: { scheme: 'tableau.Classic20' } } });
+
             // Observers for live attributes
             if (this.element.hasAttribute('mv-chart-data')) {
                 const updateData = (value, chart) => {
@@ -126,32 +115,6 @@
                         .forEach((dataset, index) => {
                             const data = dataset.split(',').map(num => +num);
                             chart.data.datasets[index] = { ...chart.data.datasets[index], data };
-                            // Styles haven't been set via either mv-chart-series-styles or mv-chart-theme,
-                            // and/or we have a new series of data
-                            if (!chart.options.plugins.colorschemes && index >= datasets.length) {
-                                // Add new styles depending on the chart type
-                                if (specialChartTypes.includes(chart.config.type)) {
-                                    // What if there were colors already?
-                                    // Save previously added colors and add new if needed
-                                    let numColors;
-                                    if (chart.data.datasets[index].backgroundColor) {
-                                        numColors = chart.data.datasets[index].backgroundColor.length;
-                                    } else {
-                                        chart.data.datasets[index].backgroundColor = [];
-                                        numColors = 0;
-                                    }
-                                    for (let i = numColors; i < data.length; i++) {
-                                        chart.data.datasets[index].backgroundColor.push(randomColor());
-                                    }
-                                } else {
-                                    const color = randomColor();
-                                    chart.data.datasets[index] = {
-                                        ...chart.data.datasets[index],
-                                        borderColor: color,
-                                        backgroundColor: `${color}4d` // Add the alpha channel to the generated color
-                                    };
-                                }
-                            }
                         });
                 }
 
@@ -267,7 +230,12 @@
                     expr.update();
                     theme = this.element.getAttribute('mv-chart-theme');
                 }
-                $.extend(this.chart.options, { plugins: { colorschemes: { scheme: theme.trim(), override: true } } });
+                this.chart.options.plugins = {
+                    colorschemes: {
+                        scheme: theme.trim(),
+                        override: true
+                    }
+                };
             }
         }
     });

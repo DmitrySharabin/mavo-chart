@@ -170,7 +170,7 @@ Styles of data series can also be specified via a JSON-like value of the `mv-cha
 
 Expressions in the `mv-chart-options` are disabled by default.
 
-Both of these cases are shown in the **Demo** so that you can play with it.
+Both of these cases are shown in the **Demo** so that you can play with them.
 
 ## Localization
 

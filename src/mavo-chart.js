@@ -241,9 +241,9 @@
     });
 
     // Think of localization from the very beginning :)
-	Mavo.Locale.register('en', {
-		'chart-styles-parse-error': 'Invalid mv-chart-series-styles attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart.',
-		'chart-options-parse-error': 'Invalid mv-chart-options attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart.',
-	});
+    Mavo.Locale.register('en', {
+        'chart-styles-parse-error': 'Invalid mv-chart-series-styles attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart.',
+        'chart-options-parse-error': 'Invalid mv-chart-options attribute value. For more information, visit the plugin page on https://plugins.mavo.io/plugin/chart.',
+    });
 
 })(Bliss, Bliss.$);

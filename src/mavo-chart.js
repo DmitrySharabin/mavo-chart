@@ -13,15 +13,7 @@
 
         // Disable expressions in the mv-chart-options attribute
         init: function () {
-            for (let element of $$(SELECTOR)) {
-                const ignoredAttributes = ['mv-chart-options'];
-                if (element.hasAttribute('mv-expressions-ignore')) {
-                    element.getAttribute('mv-expressions-ignore').split(',').forEach(el => {
-                        Mavo.pushUnique(ignoredAttributes, el.trim());
-                    });
-                }
-                element.setAttribute('mv-expressions-ignore', ignoredAttributes.join(', '));
-            }
+            Mavo.Expressions.skip.push('mv-chart-options');
         }
     });
 

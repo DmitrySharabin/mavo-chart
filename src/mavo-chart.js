@@ -71,6 +71,11 @@
                     },
                     legend: {
                         position: chartLegendPosition || 'top'
+                    },
+                    plugins: {
+                        colorschemes: {
+                            scheme: 'tableau.Classic20' // Apply default color scheme
+                        }
                     }
                 }
             }
@@ -95,9 +100,6 @@
 
             this.chart = new Chart(this.element.getContext('2d'), chartObj);
             $.extend(this.chart.data.datasets, datasets);
-
-            // Apply default color scheme
-            $.extend(this.chart.options, { plugins: { colorschemes: { scheme: 'tableau.Classic20' } } });
 
             // Observers for live attributes
             if (this.element.hasAttribute('mv-chart-data')) {

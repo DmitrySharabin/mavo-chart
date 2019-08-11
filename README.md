@@ -144,7 +144,7 @@ To use, either give a class of `mv-chart` or specify chart data via the `mv-char
 | `mv-chart-labels`          | Defines a list of *comma-separated* values that appear as the labels on the category axis.        | ✔︎     |               |
 | `mv-chart-title`           | Defines a chart title.        | ✔︎     |               |
 | `mv-chart-title-position`  | Defines a chart title position. Possible values: `top`, `right`, `bottom`, `left`.        | Initially      | `top`         |
-| `mv-chart-legend`          | Contains a *comma-separated* list of labels that identifies the colors that are assigned to the data series or categories in a chart. **Hint:** The legend elements are interactable—you can switch on/off data series in a chart by clicking the corresponding legend item.| ✔︎     |               |
+| `mv-chart-legend`          | Contains a *comma-separated* list of labels that identifies the colors that are assigned to the data series or categories in a chart. **Hint:** The legend elements are interactive—you can switch on/off data series in a chart by clicking the corresponding legend item.| ✔︎     |               |
 | `mv-chart-legend-position` | Defines a chart legend position. Possible values: `top`, `right`, `bottom`, `left`.       | Initially      | `top`         |
 
 **Note:** If you need to use a comma as a part of a label and/or the legend item, you need to *escape it via backslash*, like so: `mv-chart-legend="Distance\, km, Area\, square km"`

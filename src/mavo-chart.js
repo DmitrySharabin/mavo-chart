@@ -71,11 +71,6 @@
                     },
                     legend: {
                         position: chartLegendPosition || 'top'
-                    },
-                    plugins: {
-                        colorschemes: {
-                            scheme: 'tableau.Classic20' // Apply default color scheme
-                        }
                     }
                 }
             }
@@ -230,7 +225,13 @@
                         override: true
                     }
                 };
-            }
+						} else {
+							this.chart.options.plugins = {
+									colorschemes: {
+											scheme: 'tableau.Classic20' // Apply default color scheme
+									}
+							};
+						}
         }
     });
 

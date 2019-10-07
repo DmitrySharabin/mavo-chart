@@ -225,13 +225,13 @@
                         override: true
                     }
                 };
-						} else {
-							this.chart.options.plugins = {
-									colorschemes: {
-											scheme: 'tableau.Classic20' // Apply default color scheme
-									}
-							};
-						}
+            } else {
+                this.chart.options.plugins = {
+                    colorschemes: {
+                        scheme: 'tableau.Classic20' // Apply default color scheme
+                    }
+                };
+            }
         }
     });
 

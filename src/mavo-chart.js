@@ -1,5 +1,5 @@
 (function ($, $$) {
-    const SELECTOR = 'canvas.mv-chart, canvas[mv-chart-data]';
+    const SELECTOR = 'canvas[mv-chart-data]';
 
     // Utility function for parsing styles and chart options
     const parseOptions = options => `{${options.replace(/((rgb|hsl)a?\(.+?\))|(#?\w+)/g, match => `"${match}"`)}}`;

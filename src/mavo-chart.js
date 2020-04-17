@@ -5,11 +5,12 @@
     const parseOptions = options => `{${options.replace(/((rgb|hsl)a?\(.+?\))|(#?\w+)/g, match => `"${match}"`)}}`;
 
     Mavo.Plugins.register('chart', {
-        dependencies: [
-            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js',
-            'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css',
-            'https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes'
-        ],
+        ready: Promise.all([
+            $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'),
+            $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css')
+        ]).then(() => {
+            $.include('https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes')
+        }),
 
         // Disable expressions in the mv-chart-options attribute
         init: function () {

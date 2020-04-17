@@ -1,6 +1,6 @@
 # Mavo Chart
 
-To use, either give a class of `mv-chart` or specify chart data via the `mv-chart-data` attribute to the `canvas` element you want to enable Chart on. The `canvas` element must be a **property**.
+To use, specify chart data via the `mv-chart-data` attribute to a `canvas` element you want to enable Chart on.
 
 ## Demo
 

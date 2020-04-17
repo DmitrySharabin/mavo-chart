@@ -63,6 +63,11 @@
                             },
                             legend: {
                                 position: chartLegendPosition || 'top'
+                            },
+                            plugins: {
+                                colorschemes: {
+                                    scheme: 'tableau.Classic20' // Apply default color scheme
+                                }
                             }
                         }
                     }
@@ -215,12 +220,6 @@
                             colorschemes: {
                                 scheme: theme.trim(),
                                 override: true
-                            }
-                        };
-                    } else {
-                        el.chart.options.plugins = {
-                            colorschemes: {
-                                scheme: 'tableau.Classic20' // Apply default color scheme
                             }
                         };
                     }

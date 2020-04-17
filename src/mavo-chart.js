@@ -6,8 +6,8 @@
 
     Mavo.Plugins.register('chart', {
         ready: Promise.all([
-            $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'),
-            $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css')
+            $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'),
+            $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css')
         ]).then(() => {
             $.include('https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes')
         }),

@@ -35,8 +35,7 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
     </table>
 
     <!-- Charts -->
-    <canvas property="lineChart"
-            mv-chart-title="Wildlife Population"
+    <canvas mv-chart-title="Wildlife Population"
             mv-chart-legend="Bears, Dolphins, Whales"
             mv-chart-legend-position="bottom"
             mv-chart-data="[stats.bears]; [stats.dolphins]; [stats.whales]"
@@ -70,8 +69,7 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
         </select>
     </label>
 
-    <canvas property="doughnutChart"
-            mv-chart-type="doughnut"
+    <canvas mv-chart-type="doughnut"
             mv-chart-title="Population of [readable(species)]"
             mv-chart-data="[if(species = 'bears', stats.bears, if(species = 'dolphins', stats.dolphins, stats.whales))]"
             mv-chart-labels="[stats.year]"
@@ -81,8 +79,7 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
     </canvas>
 
     <h2>Chart with Theme</h2>
-    <canvas property="horizontalBarChart"
-            mv-chart-type="horizontalBar"
+    <canvas mv-chart-type="horizontalBar"
             mv-chart-title="Wildlife Population"
             mv-chart-data="[stats.bears]; [stats.dolphins]; [stats.whales]"
             mv-chart-labels="[stats.year]"

@@ -19,7 +19,7 @@
 
         hooks: {
             "init-end": env => {
-                $$(SELECTOR, env.element).forEach(el =>{
+                $$(SELECTOR, env.element).forEach(el => {
                     // Parse the static attributes
                     let chartType = el.getAttribute('mv-chart-type');
                     if (chartType) {
@@ -31,7 +31,7 @@
                         }
                         chartType = chartType.trim();
                     }
-    
+
                     let chartTitlePosition = el.getAttribute('mv-chart-title-position');
                     if (chartTitlePosition) {
                         const expr = Mavo.DOMExpression.search(el, 'mv-chart-title-position');
@@ -42,7 +42,7 @@
                         }
                         chartTitlePosition = chartTitlePosition.trim();
                     }
-    
+
                     let chartLegendPosition = el.getAttribute('mv-chart-legend-position');
                     if (chartLegendPosition) {
                         const expr = Mavo.DOMExpression.search(el, 'mv-chart-legend-position');
@@ -53,7 +53,7 @@
                         }
                         chartLegendPosition = chartLegendPosition.trim();
                     }
-    
+
                     // Default chart
                     const chartObj = {
                         type: chartType || 'line',
@@ -71,9 +71,9 @@
                             }
                         }
                     }
-    
+
                     const datasets = [];
-    
+
                     // Parse styles of series of data
                     let seriesStyles = el.getAttribute('mv-chart-series-styles');
                     if (seriesStyles) {
@@ -89,10 +89,10 @@
                             Mavo.warn(env._('chart-styles-parse-error'));
                         }
                     }
-    
+
                     el.chart = new Chart(el.getContext('2d'), chartObj);
                     $.extend(el.chart.data.datasets, datasets);
-    
+
                     // Observers for live attributes
                     if (el.hasAttribute('mv-chart-data')) {
                         const updateData = (value, chart) => {
@@ -103,7 +103,7 @@
                                     chart.data.datasets[index] = { ...chart.data.datasets[index], data };
                                 });
                         }
-    
+
                         // Check whether the mv-chart-data attribute value is an expression
                         if (Mavo.DOMExpression.search(el, 'mv-chart-data')) {
                             // If yes, add the corresponding observer
@@ -116,7 +116,7 @@
                             updateData(el.getAttribute('mv-chart-data'), el.chart);
                         }
                     }
-    
+
                     if (el.hasAttribute('mv-chart-labels')) {
                         const updateLabels = (value) => {
                             return value
@@ -126,7 +126,7 @@
                                 .split(',')
                                 .map(label => label.replace(/\s{2,}/g, ' ').trim().replace('$1', ','));
                         }
-    
+
                         // Check whether the mv-chart-labels attribute value is an expression
                         if (Mavo.DOMExpression.search(el, 'mv-chart-labels')) {
                             // If yes, add the corresponding observer
@@ -139,7 +139,7 @@
                             el.chart.data.labels = updateLabels(el.getAttribute('mv-chart-labels'));
                         }
                     }
-    
+
                     if (el.hasAttribute('mv-chart-title')) {
                         const updateTitle = (value, chart) => {
                             const title = value.replace(/\s{2,}/g, ' ').trim();
@@ -150,7 +150,7 @@
                                 chart.options.title.display = true;
                             }
                         }
-    
+
                         // Check whether the mv-chart-title attribute value is an expression
                         if (Mavo.DOMExpression.search(el, 'mv-chart-title')) {
                             // If yes, add the corresponding observer
@@ -163,7 +163,7 @@
                             updateTitle(el.getAttribute('mv-chart-title'), el.chart);
                         }
                     }
-    
+
                     if (el.hasAttribute('mv-chart-legend')) {
                         const updateLegend = (value, chart) => {
                             const legend = value.replace(/\s{2,}/g, ' ').trim();
@@ -181,7 +181,7 @@
                                     });
                             }
                         }
-    
+
                         // Check whether the mv-chart-legend attribute value is an expression
                         if (Mavo.DOMExpression.search(el, 'mv-chart-legend')) {
                             // If yes, add the corresponding observer
@@ -196,7 +196,7 @@
                     } else {
                         el.chart.options.legend.display = false;
                     }
-    
+
                     if (el.hasAttribute('mv-chart-options')) {
                         try {
                             // Parse a chart options
@@ -206,7 +206,7 @@
                             Mavo.warn(env._('chart-options-parse-error'));
                         }
                     }
-    
+
                     // Add a theme to a chart if needed and override the default styling
                     let theme = el.getAttribute('mv-chart-theme');
                     if (theme) {

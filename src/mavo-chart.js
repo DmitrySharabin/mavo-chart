@@ -3,7 +3,7 @@
 /**
  * Mavo plugin for the Chart.js library. Visualize data in Mavo apps with animated, customizable, and responsive charts
  * @author Dmitry Sharabin and contributors
- * @version %%VERSION%%
+ * @version v0.2.1
  */
 
 (function ($, $$) {

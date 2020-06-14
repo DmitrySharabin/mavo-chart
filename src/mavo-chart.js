@@ -1,3 +1,11 @@
+// @ts-check
+
+/**
+ * Mavo plugin for the Chart.js library. Visualize data in Mavo apps with animated, customizable, and responsive charts
+ * @author Dmitry Sharabin and contributors
+ * @version %%VERSION%%
+ */
+
 (function ($, $$) {
 	const SELECTOR = "canvas[mv-chart-data]";
 

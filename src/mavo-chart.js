@@ -15,6 +15,10 @@
         // Disable expressions in the mv-chart-options attribute
         init: function () {
             Mavo.Expressions.skip.push('mv-chart-options');
+
+            // Disable automatic style injection
+            // See https://www.chartjs.org/docs/latest/getting-started/integration.html#content-security-policy
+            Chart.platform.disableCSSInjection = true;
         },
 
         hooks: {

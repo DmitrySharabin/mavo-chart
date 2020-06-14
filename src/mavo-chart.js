@@ -220,12 +220,15 @@
                             expr.update();
                             theme = el.getAttribute('mv-chart-theme');
                         }
-                        el.chart.options.plugins = {
+
+                        $.extend(el.chart.options.plugins, {
                             colorschemes: {
                                 scheme: theme.trim(),
                                 override: true
                             }
-                        }
+                        });
+
+                        el.chart.update();
                     }
                 });
             }

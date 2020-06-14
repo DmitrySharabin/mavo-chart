@@ -9,7 +9,41 @@
             $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js'),
             $.include('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css')
         ]).then(() => {
-            $.include('https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes')
+            $.include('https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes').then(() => {
+                // Work only with charts without user-defined styles
+                $$(`${SELECTOR}:not([mv-chart-series-styles])`).forEach(el => {
+                    if (el.chart) {
+                        // Add a theme to a chart if needed and override the default styling
+                        let theme = el.getAttribute('mv-chart-theme');
+                        if (theme) {
+                            const expr = Mavo.DOMExpression.search(el, 'mv-chart-theme');
+                            // If we have an expression, we need to evaluate it first
+                            if (expr) {
+                                expr.update();
+                                theme = el.getAttribute('mv-chart-theme');
+                            }
+
+                            $.extend(el.chart.options.plugins, {
+                                colorschemes: {
+                                    scheme: theme.trim(),
+                                    override: true
+                                }
+                            });
+                        }
+
+                        // Fix issue with the legend—it remains grayscale
+                        // I know it's too hacky, but this is the only solution I could find for now
+                        if (el.chart.options.legend.display) {
+                            el.chart.options.legend.display = false;
+                            el.chart.update();
+                            el.chart.options.legend.display = true;
+                        }
+
+                        // Update the chart to apply the (default) theme
+                        el.chart.update();
+                    }
+                });
+            });
         }),
 
         // Disable expressions in the mv-chart-options attribute
@@ -209,26 +243,6 @@
                         } catch (error) {
                             Mavo.warn(env._('chart-options-parse-error'));
                         }
-                    }
-
-                    // Add a theme to a chart if needed and override the default styling
-                    let theme = el.getAttribute('mv-chart-theme');
-                    if (theme) {
-                        const expr = Mavo.DOMExpression.search(el, 'mv-chart-theme');
-                        // If we have an expression, we need to evaluate it first
-                        if (expr) {
-                            expr.update();
-                            theme = el.getAttribute('mv-chart-theme');
-                        }
-
-                        $.extend(el.chart.options.plugins, {
-                            colorschemes: {
-                                scheme: theme.trim(),
-                                override: true
-                            }
-                        });
-
-                        el.chart.update();
                     }
                 });
             }

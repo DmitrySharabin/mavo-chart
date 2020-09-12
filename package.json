@@ -1,6 +1,6 @@
 {
   "name": "mavo-chart",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Mavo Plugin for the Chart.js Library",
   "main": "index.js",
   "repository": "https://github.com/DmitrySharabin/mavo-chart.git",

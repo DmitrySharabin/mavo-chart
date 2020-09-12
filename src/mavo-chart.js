@@ -118,26 +118,7 @@
 						}
 					}
 
-					const datasets = [];
-
-					// Parse styles of series of data
-					let seriesStyles = el.getAttribute("mv-chart-series-styles");
-					if (seriesStyles) {
-						const expr = Mavo.DOMExpression.search(el, "mv-chart-series-styles");
-						// If we have an expression, we need to evaluate it first
-						if (expr) {
-							expr.update();
-							seriesStyles = el.getAttribute("mv-chart-series-styles");
-						}
-						try {
-							seriesStyles.split(";").forEach(style => datasets.push(JSON.parse(parseOptions(style))));
-						} catch (error) {
-							Mavo.warn(env._("chart-styles-parse-error"));
-						}
-					}
-
 					el.chart = new Chart(el.getContext("2d"), chartObj);
-					$.extend(el.chart.data.datasets, datasets);
 
 					// Observers for live attributes
 					if (el.hasAttribute("mv-chart-data")) {
@@ -241,6 +222,29 @@
 						}
 					} else {
 						el.chart.options.legend.display = false;
+					}
+
+					// Parse styles of series of data
+					if (el.getAttribute("mv-chart-series-styles")) {
+						const updateStyles = (styles, chart) => {
+							try {
+								styles.split(";").forEach((style, index) => chart.data.datasets[index] = { ...chart.data.datasets[index], ...JSON.parse(parseOptions(style)) });
+							} catch (error) {
+								Mavo.warn(env._("chart-styles-parse-error"));
+							}
+						};
+
+						// Check whether the mv-chart-series-styles attribute value is an expression
+						if (Mavo.DOMExpression.search(el, "mv-chart-series-styles")) {
+							// If yes, add the corresponding observer
+							el.chartStylesObserver = new Mavo.Observer(el, "mv-chart-series-styles", () => {
+								updateStyles(el.getAttribute("mv-chart-series-styles"), el.chart);
+								el.chart.update();
+							});
+						} else {
+							// Otherwise, parse the attribute value
+							updateStyles(el.getAttribute("mv-chart-series-styles"), el.chart);
+						}
 					}
 
 					if (el.hasAttribute("mv-chart-options")) {

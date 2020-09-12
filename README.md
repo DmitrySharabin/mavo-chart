@@ -148,8 +148,8 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
 
 ## Data series customization
 
-The Chart plugin supports [a number of options for styling data series](https://www.chartjs.org/docs/latest/configuration/elements.html#line-configuration). You can specify these options on a per-series basis by using the `mv-chart-series-styles` attribute.
-The syntax of this attribute is a CSS-like list of declarations, where you should use *commas* to separate the option-value pairs and *semicolons* to separate style declarations of different data series. You can set the value of this attribute until Mavo uses it, but nothing will happen if it changes after that point.
+The Chart plugin supports [a number of options for styling data series](https://www.chartjs.org/docs/latest/configuration/elements.html#line-configuration). You can specify these options on a per-series basis by using the `mv-chart-series-styles` attribute. The attribute is live.
+The syntax of this attribute is a CSS-like list of declarations, where you should use *commas* to separate the option-value pairs and *semicolons* to separate style declarations of different data series.
 
 ## Theming
 

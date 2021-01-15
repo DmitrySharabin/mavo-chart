@@ -3,7 +3,7 @@
 /**
  * Mavo plugin for the Chart.js library. Visualize data in Mavo apps with animated, customizable, and responsive charts
  * @author Dmitry Sharabin and contributors
- * @version v0.2.2
+ * @version v0.2.3
  */
 
 (function ($, $$) {
@@ -14,8 +14,7 @@
 
 	Mavo.Plugins.register("chart", {
 		ready: Promise.all([
-			$.include("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"),
-			$.include("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css")
+			$.include("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js")
 		]).then(() => {
 			$.include("https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes").then(() => {
 				// Work only with charts without user-defined styles
@@ -53,6 +52,10 @@
 				});
 			});
 		}),
+
+		dependencies: [
+			"https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css"
+		],
 
 		// Disable expressions in the mv-chart-options attribute
 		init: function () {

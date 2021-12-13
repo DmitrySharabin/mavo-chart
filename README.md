@@ -38,8 +38,8 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
     <canvas mv-chart-title="Wildlife Population"
             mv-chart-legend="Bears, Dolphins, Whales"
             mv-chart-legend-position="bottom"
-            mv-chart-data="[get(stats, 'bears')]; [get(stats, 'dolphins')]; [get(stats, 'whales')]"
-            mv-chart-labels="[get(stats, 'year')]"
+            mv-chart-data="[bears]; [dolphins]; [whales]"
+            mv-chart-labels="[year]"
             mv-chart-series-styles="backgroundColor: transparent, borderColor: royalblue; backgroundColor: transparent, borderColor: gray; backgroundColor: transparent, borderColor: orange"
             mv-chart-options="scales: {
                 xAxes: [{
@@ -72,7 +72,7 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
     <canvas mv-chart-type="doughnut"
             mv-chart-title="Population of [readable(species)]"
             mv-chart-data="[get(stats, species)]"
-            mv-chart-labels="[get(stats, 'year')]"
+            mv-chart-labels="[year]"
             mv-expressions-ignore="mv-chart-series-styles"
             mv-chart-series-styles="backgroundColor: [#5899da, rgb(232, 116, 59), hotpink, rgba(69, 170, 121, 1), hsla(269, 54%, 59%, 1), #6c8893]">
         <p>Your browser doesn't support charts in canvas!</p>
@@ -81,8 +81,8 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
     <h2>Chart with Theme</h2>
     <canvas mv-chart-type="horizontalBar"
             mv-chart-title="Wildlife Population"
-            mv-chart-data="[get(stats, 'bears')]; [get(stats, 'dolphins')]; [get(stats, 'whales')]"
-            mv-chart-labels="[get(stats, 'year')]"
+            mv-chart-data="[bears]; [dolphins]; [whales]"
+            mv-chart-labels="[year]"
             mv-chart-legend="Bears, Dolphins, Whales"
             mv-chart-theme="tableau.Classic10">
         <p>Your browser doesn't support charts in canvas!</p>

@@ -6,7 +6,7 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
 
 ```markup
 <main mv-app="chartDemo" mv-plugins="chart"
-      mv-source="https://raw.githubusercontent.com/DmitrySharabin/mavo-chart/master/example.json" >
+      mv-source="https://dmitrysharabin.github.io/mavo-chart/example.json">
     <header>
         <h1>Mavo Chart Plugin Demo</h1>
     </header>

@@ -71,7 +71,7 @@ To use, specify chart data via the `mv-chart-data` attribute to a `canvas` eleme
 
     <canvas mv-chart-type="doughnut"
             mv-chart-title="Population of [readable(species)]"
-            mv-chart-data="[species]"
+            mv-chart-data="[get(stats, species)]"
             mv-chart-labels="[year]"
             mv-expressions-ignore="mv-chart-series-styles"
             mv-chart-series-styles="backgroundColor: [#5899da, rgb(232, 116, 59), hotpink, rgba(69, 170, 121, 1), hsla(269, 54%, 59%, 1), #6c8893]">

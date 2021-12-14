@@ -2,7 +2,7 @@
   "name": "mavo-chart",
   "version": "0.2.3",
   "description": "Mavo Plugin for the Chart.js Library",
-  "main": "index.js",
+  "main": "mavo-chart.js",
   "repository": "https://github.com/DmitrySharabin/mavo-chart.git",
   "author": "Dmitry Sharabin <dmitrysharabin@gmail.com>",
   "license": "MIT",

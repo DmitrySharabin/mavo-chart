@@ -154,7 +154,7 @@
 								// We let users escape them via backslash
 								.replace(/\\,/g, "$1")
 								.split(",")
-								.map(label => label.replace(/\s{2,}/g, " ").trim().replace("$1", ","));
+								.map(label => label.replace(/\s{2,}/g, " ").trim().replace(/\$1/g, ","));
 						}
 
 						// Check whether the mv-chart-labels attribute value is an expression
@@ -207,7 +207,7 @@
 									.replace(/\\,/g, "$1")
 									.split(",")
 									.forEach((label, index) => {
-										chart.data.datasets[index] = { ...chart.data.datasets[index], label: label.trim().replace("$1", ",") };
+										chart.data.datasets[index] = { ...chart.data.datasets[index], label: label.trim().replace(/\$1/g, ",") };
 									});
 							}
 						}
